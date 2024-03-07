@@ -8,19 +8,26 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/nx-signal-app",
         "index": "apps/nx-signal-app/src/index.html",
         "browser": "apps/nx-signal-app/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/nx-signal-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/nx-signal-app/src/favicon.ico",
           "apps/nx-signal-app/src/assets"
         ],
-        "styles": ["apps/nx-signal-app/src/styles.scss"],
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/nx-signal-app/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
