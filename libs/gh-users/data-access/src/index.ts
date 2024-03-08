@@ -1,1 +1,2 @@
-export * from './lib/data-access/data-access.component';
+export * from './lib/users.model';
+export * from './lib/users.service';
