@@ -1,1 +1,32 @@
-<p>users-search-filter works!</p>
+<div class="filter-container">
+  <mat-form-field appearance="outline" class="query">
+    <mat-label>Search</mat-label>
+    <input
+      matInput
+      type="text"
+      autocomplete="oselectedList"
+      [ngModel]="query()"
+      (ngModelChange)="onQueryChange($event)"
+    />
+  </mat-form-field>
+
+  <div class="languages">
+    <mat-form-field>
+      <mat-label>languages</mat-label>
+      <mat-select (selectionChange)="onChange($event)" multiple #selectedList>
+        <mat-select-trigger>
+          {{selectedList.value?.[0] || ''}}
+          @if ((selectedList.value?.length || 0) > 1) {
+          <span class="example-additional-selection">
+            (+{{ (selectedList.value?.length || 0) - 1 }}
+            {{ selectedList.value?.length === 2 ? 'other' : 'others' }})
+          </span>
+          }
+        </mat-select-trigger>
+        @for (language of languagesMap; track language) {
+        <mat-option [value]="language">{{ language }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
