@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@gh-users/data-access": ["libs/gh-users/data-access/src/index.ts"],
+      "@gh-users/users-search": [
+        "libs/gh-users/feature-users-search/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
