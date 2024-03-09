@@ -5,7 +5,7 @@
       matInput
       type="text"
       autocomplete="oselectedList"
-      [ngModel]="query()"
+      [ngModel]="searchParams().query"
       (ngModelChange)="onQueryChange($event)"
     />
   </mat-form-field>
@@ -13,7 +13,7 @@
   <div class="languages">
     <mat-form-field>
       <mat-label>languages</mat-label>
-      <mat-select (selectionChange)="onChange($event)" multiple #selectedList>
+      <mat-select (selectionChange)="onLanguageChange($event.value)" multiple #selectedList>
         <mat-select-trigger>
           {{selectedList.value?.[0] || ''}}
           @if ((selectedList.value?.length || 0) > 1) {

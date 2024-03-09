@@ -20,19 +20,20 @@ export interface User {
   score: number;
 }
 
-export interface SearchQueryParams {
-  name: string;
-  page: number;
-  per_page: number;
-  languages?: (typeof LanguagesMap[keyof typeof LanguagesMap])[];
-}
+// export interface SearchQueryParams {
+//   name: string;
+//     languages?: (typeof LanguagesMap[keyof typeof LanguagesMap])[];
+//   page: number;
+//   per_page: number;
 
-export const LanguagesMap: { [key: string]: string } = {
-  javascipt: 'javascript',
-  python: 'python',
-  ruby: 'ruby',
-  typescript: 'typescript',
-};
+// }
+
+// export const LanguagesMap: { [key: string]: string } = {
+//   javascipt: 'javascript',
+//   python: 'python',
+//   ruby: 'ruby',
+//   typescript: 'typescript',
+// };
 
 export interface Users {
   total_count: number;
@@ -40,20 +41,20 @@ export interface Users {
   items: User[]
 }
 
-export interface UserSearchState {
-  users: Users
-  searchParams: SearchQueryParams
-}
+// export interface UserSearchState {
+//   users: Users
+//   searchParams: SearchQueryParams
+// }
 
-export const userSearchInitialstate: UserSearchState = {
-  users: {
-    total_count: 0,
-    items: []
-  },
-  searchParams: {
-    name: '',
-    page: 1,
-    per_page: 20,
-    languages: [],
-  }
-}
+// export const userSearchInitialstate: UserSearchState = {
+//   users: {
+//     total_count: 0,
+//     items: []
+//   },
+//   searchParams: {
+//     name: '',
+//     page: 1,
+//     per_page: 20,
+//     languages: [],
+//   }
+// }

@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
-import { LanguagesMap } from '@gh-users/data-access';
-import { CommonModule } from '@angular/common';
+import { LanguagesMap, SearchParams } from '../users-search.model';
+
 
 @Component({
   selector: 'lib-users-search-filter',
@@ -24,19 +25,29 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersSearchFilterComponent {
-  readonly query = input('');
-  readonly order = input<any>('asc');
+  readonly searchParams = input<SearchParams>({
+    query: '',
+    languages: [],
+  });
 
-  public languagesMap = Object.values(LanguagesMap);
+  languagesMap = Object.values(LanguagesMap);
 
-  @Output() readonly queryChange = new EventEmitter<string>();
-  @Output() readonly orderChange = new EventEmitter<any>();
+  @Output() readonly paramsChange = new EventEmitter<SearchParams>();
 
-  onQueryChange(query: string) {
-    this.queryChange.emit(query.trim().toLowerCase());
+  onQueryChange(query: string): void {
+    const newSearchParams: SearchParams = {
+      query: query.trim().toLowerCase(),
+      languages: this.searchParams()?.languages
+    };
+    this.paramsChange.emit(newSearchParams);
   }
 
-  onChange(event:any){
-    console.log('event', event)
+  onLanguageChange(languages: string[]): void {
+    const newSearchParams: SearchParams = {
+      query: this.searchParams()?.query,
+      languages
+    };
+    this.paramsChange.emit(newSearchParams);
   }
+
 }
