@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UsersService } from '@gh-users/data-access';
 import { ComponentStore } from '@ngrx/component-store';
 import { SearchParams, SearchResult, UserSearchState, userSearchInitialstate } from './users-search.model';
-import { EMPTY, catchError, combineLatest, of, switchMap, tap } from 'rxjs';
+import { EMPTY, catchError, of, skip, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 
@@ -11,34 +11,26 @@ export class UsersSearchStore extends ComponentStore<UserSearchState>{
 
   constructor(private readonly usersService: UsersService) {
     super(userSearchInitialstate);
-
-    this.effect(() => {
-      return combineLatest([this.searchParams$, this.pagination$]).pipe(
-        switchMap(([searchParams, pagination]) => {
-          if (searchParams.query === '') {
-            return of({ items: [], total_count: 0, incomplete_results: false });
-          }
-          return this.usersService.getUsers(searchParams, pagination)
-        }),
-        tap({
-          next: (res: SearchResult) => {
-            console.log(res)
-            this.patchState({ searchResult: res })
-          },
-          error: (error) => { console.log(error) }
-        }),
-        catchError(() => EMPTY)
-      )
-    })
   }
 
+  readonly searchResult$ = this.select((store) => store.searchResult);
+  readonly searchParams$ = this.select((store) => store.searchParams);
+  readonly pagination$ = this.select((store) => store.pagination);
 
-  searchResult$ = this.select((store) => store.searchResult);
-  searchParams$ = this.select((store) => store.searchParams);
-  pagination$ = this.select((store) => store.pagination);
+  readonly searchResult = toSignal(this.searchResult$, { initialValue: userSearchInitialstate.searchResult });
+  readonly searchParams = toSignal(this.searchParams$, { initialValue: userSearchInitialstate.searchParams });
+  readonly pagination = toSignal(this.pagination$, { initialValue: userSearchInitialstate.pagination });
 
 
 
+  private setFirstPage() {
+    this.patchState({
+      pagination: {
+        page: 1,
+        per_page: this.pagination().per_page,
+      }
+    })
+  }
 
   updateSearchParams(searchParams: SearchParams) {
     this.patchState({
@@ -46,21 +38,63 @@ export class UsersSearchStore extends ComponentStore<UserSearchState>{
     });
   }
 
-  onPageChange(page: number) {
-    const pagination = {
-      ...this.get((state) => state.pagination),
-      page,
-    };
-
+  updateUsersList(responce: SearchResult) {
     this.patchState({
-      pagination,
+      searchResult: {
+        ...this.searchResult(),
+        items: [...this.searchResult().items, ...responce.items]
+      }
+    })
+  }
+
+  changeToNextPage() {
+    this.patchState({
+      pagination: {
+        page: this.pagination().page + 1,
+        per_page: this.pagination().per_page,
+      }
     });
   }
 
+  readonly searchByParams = this.effect(() => {
+    return this.searchParams$.pipe(
+      tap(() => this.setFirstPage()),
+      switchMap((searchParams) => {
+        if (searchParams.query === '') {
+          return of({ items: [], total_count: 0, incomplete_results: false });
+        }
+        return this.usersService.getUsers(searchParams, this.pagination())
+      }),
+      tap({
+        next: (res: SearchResult) => {
+          console.log(res)
+          this.patchState({ searchResult: res })
+        },
+        error: (error) => { console.log(error) }
+      }),
+      catchError(() => EMPTY)
+    )
+  })
 
-  readonly searchResult = toSignal(this.searchResult$, { initialValue: userSearchInitialstate.searchResult });
-  readonly searchParams = toSignal(this.searchParams$, { initialValue: userSearchInitialstate.searchParams });
-  readonly pagination = toSignal(this.pagination$, { initialValue: userSearchInitialstate.pagination });
-
+  readonly addNextPage = this.effect(() => {
+    return this.pagination$.pipe(
+      skip(1),
+      switchMap((pagination) => {
+        if (pagination.page === 1) {
+          return of(null);
+        }
+        return this.usersService.getUsers(this.searchParams(), pagination)
+      }),
+      tap({
+        next: ((responce: SearchResult | null) => {
+          if (responce) {
+            this.updateUsersList(responce)
+          }
+        }),
+        error: (error) => { console.log(error) }
+      }),
+      catchError(() => EMPTY)
+    )
+  })
 
 }
