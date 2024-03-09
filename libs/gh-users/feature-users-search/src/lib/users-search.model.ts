@@ -13,7 +13,8 @@ export interface Pagination {
 
 export interface SearchResult {
   total_count: number
-  users: User[]
+  items: User[]
+  incomplete_results: boolean
 }
 
 export const LanguagesMap: { [key: string]: string } = {
@@ -32,7 +33,8 @@ export interface UserSearchState {
 export const userSearchInitialstate: UserSearchState = {
   searchResult: {
     total_count: 0,
-    users: [],
+    items: [],
+    incomplete_results: false
   },
   searchParams: {
     query: '',

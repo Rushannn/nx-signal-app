@@ -1,0 +1,18 @@
+<div class="github-user-card" *ngIf="user">
+  <img
+    src="{{ user.avatar_url }}"
+    alt="{{ user.login }}'s avatar"
+    class="github-user-card__avatar"
+  />
+  <div class="github-user-card__info">
+    <h2 class="github-user-card__name">
+      <a href="{{ user.html_url }}" target="_blank">{{ user.login }}</a>
+    </h2>
+    <p class="github-user-card__followers">
+      <a href="{{ user.followers_url }}" target="_blank">Followers URL</a>
+    </p>
+    <p class="github-user-card__repos">
+      <a href="{{ user.repos_url }}" target="_blank">Repositories URL</a>
+    </p>
+  </div>
+</div>

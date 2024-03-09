@@ -16,12 +16,13 @@ export class UsersSearchStore extends ComponentStore<UserSearchState>{
       return combineLatest([this.searchParams$, this.pagination$]).pipe(
         switchMap(([searchParams, pagination]) => {
           if (searchParams.query === '') {
-            return of({ users: [], total_count: 0 });
+            return of({ items: [], total_count: 0, incomplete_results: false });
           }
           return this.usersService.getUsers(searchParams, pagination)
         }),
         tap({
           next: (res: SearchResult) => {
+            console.log(res)
             this.patchState({ searchResult: res })
           },
           error: (error) => { console.log(error) }
