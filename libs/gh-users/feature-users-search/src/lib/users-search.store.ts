@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { UsersService } from '@gh-users/data-access';
+import { SearchResult, UsersService } from '@gh-users/data-access';
 import { ComponentStore } from '@ngrx/component-store';
-import { SearchParams, SearchResult, UserSearchState, userSearchInitialstate } from './users-search.model';
+import { SearchParams, UserSearchState, userSearchInitialstate } from './users-search.model';
 import { EMPTY, catchError, of, skip, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -74,7 +74,7 @@ export class UsersSearchStore extends ComponentStore<UserSearchState>{
       }),
       catchError(() => EMPTY)
     )
-  })
+  });
 
   readonly addNextPage = this.effect(() => {
     return this.pagination$.pipe(
@@ -95,6 +95,6 @@ export class UsersSearchStore extends ComponentStore<UserSearchState>{
       }),
       catchError(() => EMPTY)
     )
-  })
+  });
 
 }

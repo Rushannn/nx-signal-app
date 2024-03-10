@@ -1,0 +1,9 @@
+{
+  "name": "user-detail",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/gh-users/feature-user-detail/src",
+  "prefix": "lib",
+  "tags": [],
+  "projectType": "library",
+  "targets": {}
+}

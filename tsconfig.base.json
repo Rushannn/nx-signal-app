@@ -17,6 +17,9 @@
     "paths": {
       "@core/http-client": ["libs/core/http-client/src/index.ts"],
       "@gh-users/data-access": ["libs/gh-users/data-access/src/index.ts"],
+      "@gh-users/user-detail": [
+        "libs/gh-users/feature-user-detail/src/index.ts"
+      ],
       "@gh-users/users-search": [
         "libs/gh-users/feature-users-search/src/index.ts"
       ]

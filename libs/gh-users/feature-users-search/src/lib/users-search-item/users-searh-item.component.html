@@ -14,5 +14,6 @@
     <p class="github-user-card__repos">
       <a href="{{ user.repos_url }}" target="_blank">Repositories URL</a>
     </p>
+    <button [routerLink]="['/user', user.login]">View Profile</button>
   </div>
 </div>

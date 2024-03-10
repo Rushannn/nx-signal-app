@@ -1,0 +1,27 @@
+@if(userData(); as userData){
+<mat-card class="user-profile-card">
+  <mat-card-header>
+    <div
+      mat-card-avatar
+      class="user-avatar"
+      [style.background-image]="'url(' + userData.avatar_url + ')'"
+    ></div>
+    <mat-card-title>{{ userData.name }}</mat-card-title>
+    <mat-card-subtitle>{{ userData.company }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="userData.avatar_url" alt="User avatar" />
+  <mat-card-content>
+    <p><strong>Location:</strong> {{ userData.location }}</p>
+    <p>
+      <strong>Blog:</strong>
+      <a href="{{ userData.blog }}" target="_blank">{{ userData.blog }}</a>
+    </p>
+    <p><strong>Followers:</strong> {{ userData.followers }}</p>
+    <p><strong>Following:</strong> {{ userData.following }}</p>
+    <p><strong>Public Repos:</strong> {{ userData.public_repos }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button [href]="userData.html_url" target="_blank">GitHub Profile</a>
+  </mat-card-actions>
+</mat-card>
+}

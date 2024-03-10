@@ -1,5 +1,4 @@
-import { User } from "@gh-users/data-access";
-
+import { SearchResult } from "@gh-users/data-access";
 
 export interface SearchParams {
   query: string;
@@ -9,12 +8,6 @@ export interface SearchParams {
 export interface Pagination {
   page: number;
   per_page: number;
-}
-
-export interface SearchResult {
-  total_count: number
-  items: User[]
-  incomplete_results: boolean
 }
 
 export const LanguagesMap: { [key: string]: string } = {
