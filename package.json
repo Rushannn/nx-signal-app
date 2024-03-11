@@ -2,7 +2,9 @@
   "name": "nx-signal-app",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:nx-signal-app":"nx run nx-signal-app:build"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~17.1.0",
