@@ -26,6 +26,7 @@ export class UserDetailStore extends ComponentStore<UserDetailState> {
   }
 
   readonly userProfile = toSignal(this.select((state) => state.userProfile));
+  readonly status = toSignal(this.select((state) => state.status));
 
   private updateStatus(status: Status) {
     this.patchState({
@@ -45,12 +46,6 @@ export class UserDetailStore extends ComponentStore<UserDetailState> {
       userProfile
     })
   }
-
-  readonly checkUserProfile = this.effect(userProfile$ =>
-    userProfile$.pipe(
-      tap((user) => console.log('checkUserProfile user', user))
-    ))
-
 
   readonly getUser = this.effect<string | undefined>((login$) =>
     login$.pipe(

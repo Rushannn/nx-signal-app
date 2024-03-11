@@ -1,0 +1,18 @@
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="store.changeToNextPage()"
+  class="users-search-container"
+>
+  <div class="users-search-content">
+    <lib-users-search-filter
+      [searchParams]="store.searchParams()"
+      (paramsChange)="store.updateSearchParams($event)"
+    ></lib-users-search-filter>
+
+    @for (user of users(); track user) {
+    <lib-users-searh-item [user]="user"></lib-users-searh-item>
+    }
+  </div>
+</div>

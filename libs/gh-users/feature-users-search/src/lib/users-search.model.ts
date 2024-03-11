@@ -1,21 +1,4 @@
-import { SearchResult } from "@gh-users/data-access";
-
-export interface SearchParams {
-  query: string;
-  languages?: (typeof LanguagesMap[keyof typeof LanguagesMap])[];
-}
-
-export interface Pagination {
-  page: number;
-  per_page: number;
-}
-
-export const LanguagesMap: { [key: string]: string } = {
-  javascipt: 'javascript',
-  python: 'python',
-  ruby: 'ruby',
-  typescript: 'typescript',
-}
+import { Pagination, SearchParams, SearchResult } from "@gh-users/data-access"
 
 export interface UserSearchState {
   searchResult: SearchResult

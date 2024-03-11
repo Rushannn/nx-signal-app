@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { SearchResult, UsersService } from '@gh-users/data-access';
 import { ComponentStore } from '@ngrx/component-store';
-import { SearchParams, UserSearchState, userSearchInitialstate } from './users-search.model';
+import { UserSearchState, userSearchInitialstate } from './users-search.model';
 import { EMPTY, catchError, of, skip, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { SearchParams, SearchResult, UsersService } from '@gh-users/data-access';
 
 
 @Injectable()

@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { API_URL } from '@core/http-client';
 import { environment } from '../environments/environment.development';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter([

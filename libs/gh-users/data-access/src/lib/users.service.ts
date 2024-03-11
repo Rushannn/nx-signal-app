@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiService } from '@core/http-client';
 import { Observable } from 'rxjs';
-import { Pagination, SearchParams } from '@gh-users/users-search';
-import { SearchResult, UserProfile } from './users.model';
+import { Pagination, SearchParams, SearchResult, UserProfile } from './users.model';
+
 
 @Injectable({
   providedIn: 'root'

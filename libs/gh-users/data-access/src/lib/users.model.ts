@@ -61,3 +61,19 @@ export interface UserProfile {
   updated_at: string;
 }
 
+export interface SearchParams {
+  query: string;
+  languages?: (typeof LanguagesMap[keyof typeof LanguagesMap])[];
+}
+
+export interface Pagination {
+  page: number;
+  per_page: number;
+}
+
+export const LanguagesMap: { [key: string]: string } = {
+  javascipt: 'javascript',
+  python: 'python',
+  ruby: 'ruby',
+  typescript: 'typescript',
+}

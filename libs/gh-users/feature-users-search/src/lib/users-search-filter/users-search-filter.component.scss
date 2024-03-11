@@ -13,8 +13,20 @@
 
 .query {
   flex: 1;
-}
 
-.order {
-  margin-top: 0.25rem;
+  .query-icon__clear {
+    cursor: pointer;
+  }
+
+  .query-icon__clear, .query-icon__search {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  // .query-icon__clear, .query-icon__search {
+  //   opacity: 0;
+  // }
+
+  // .query-icon__clear.ng-star-inserted, .query-icon__search.ng-star-inserted {
+  //   opacity: 1;
+  // }
 }

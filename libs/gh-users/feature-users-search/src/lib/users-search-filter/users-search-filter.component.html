@@ -7,13 +7,31 @@
       autocomplete="oselectedList"
       [ngModel]="searchParams().query"
       (ngModelChange)="onQueryChange($event)"
+      #input
     />
+    <mat-icon
+      matSuffix
+      class="query-icon__search"
+      *ngIf="!input.value"
+      >search</mat-icon
+    >
+    <mat-icon
+      matSuffix
+      class="query-icon__clear"
+      *ngIf="input.value"
+      (click)="input.value = ''; onQueryChange('')"
+      >close</mat-icon
+    >
   </mat-form-field>
 
   <div class="languages">
     <mat-form-field>
       <mat-label>languages</mat-label>
-      <mat-select (selectionChange)="onLanguageChange($event.value)" multiple #selectedList>
+      <mat-select
+        (selectionChange)="onLanguageChange($event.value)"
+        multiple
+        #selectedList
+      >
         <mat-select-trigger>
           {{selectedList.value?.[0] || ''}}
           @if ((selectedList.value?.length || 0) > 1) {
